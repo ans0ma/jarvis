@@ -25,7 +25,7 @@ jarvis/
 ### Из стабильного релиза для использования:
 
 ```bash
-git clone <https://github.com/ans0ma/jarvis.git>
+git clone https://github.com/ans0ma/jarvis.git
 cd jarvis
 python3.13 -m venv venv
 venv\Scripts\activate
@@ -36,7 +36,7 @@ pip install -r requirements.txt
 ### Из нестабильного релиза для разработки:
 
 ```bash
-git clone -b <ans0ma> --single-branch <https://github.com/ans0ma/jarvis.git>
+git clone -b ans0ma --single-branch https://github.com/ans0ma/jarvis.git
 cd jarvis
 python3.13 -m venv venv
 venv\Scripts\activate
