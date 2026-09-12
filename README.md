@@ -22,7 +22,7 @@ jarvis/
 
 ## Установка
 
-Из стабильного релиза для использования:
+### Из стабильного релиза для использования:
 
 ```bash
 git clone <https://github.com/ans0ma/jarvis.git>
@@ -33,7 +33,7 @@ pip install -r requirements.txt
 ```
 Скопируйте `.env.example` в `.env` и заполните своими токенами.
 
-Из релиза разработки:
+### Из нестабильного релиза для разработки:
 
 ```bash
 git clone -b <ans0ma> --single-branch <https://github.com/ans0ma/jarvis.git>
