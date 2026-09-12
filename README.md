@@ -22,11 +22,24 @@ jarvis/
 
 ## Установка
 
+Из стабильного релиза для использования:
+
 ```bash
 git clone <https://github.com/ans0ma/jarvis.git>
 cd jarvis
 python3.13 -m venv venv
-venv\Scripts\activate (Windows)
+venv\Scripts\activate
+pip install -r requirements.txt
+```
+Скопируйте `.env.example` в `.env` и заполните своими токенами.
+
+Из релиза разработки:
+
+```bash
+git clone -b <ans0ma> --single-branch <https://github.com/ans0ma/jarvis.git>
+cd jarvis
+python3.13 -m venv venv
+venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
