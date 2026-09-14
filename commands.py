@@ -1,8 +1,5 @@
 from actions.apps import open_app, minimize_all, restore_all
-
-
-def send_telegram_message(text):
-    print(f"[заглушка] Отправляю сообщение в Telegram: {text}")
+from actions.telegram import send_telegram_message
 
 
 def execute(text):
