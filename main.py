@@ -20,9 +20,6 @@ def main():
 
         execute(text)
 
-        if text:
-            execute(text)
-
 
 if __name__ == "__main__":
     try:
