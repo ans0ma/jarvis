@@ -30,37 +30,28 @@ jarvis/
 
 ## Установка
 
-
-### Стабильная версия
-
-Для обычного использования рекомендуется установить стабильную версию:
-
-```bash
+```cmd
 git clone https://github.com/ans0ma/jarvis.git
 cd jarvis
 python3.13 -m venv venv
 venv\Scripts\activate
 pip install -r requirements.txt
 ```
-Скопируйте `.env.example` в `.env` и заполните своими токенами для работы команд, связанных с Telegram.
 
-### Версия для разработки
-
-Для разработки и тестирования последних изменений:
-
-```bash
-git clone -b ans0ma --single-branch https://github.com/ans0ma/jarvis.git
-cd jarvis
-python3.13 -m venv venv
-venv\Scripts\activate
-pip install -r requirements.txt
-```
+> **Если используете PowerShell** и при активации окружения видите ошибку вида
+> `... cannot be loaded because running scripts is disabled on this system`, значит
+> политика выполнения скриптов блокирует активацию. Разрешите её для текущего
+> пользователя:
+> ```powershell
+> Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+> ```
+> и повторите `venv\Scripts\activate`. В обычной `cmd` эта ошибка не возникает.
 
 Скопируйте `.env.example` в `.env` и заполните своими токенами для работы команд, связанных с Telegram.
 
 
 ## Запуск
 
-```bash
+```cmd
 python main.py
 ```
