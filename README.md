@@ -1,2 +1,66 @@
-# jarvis
-lightweight CLI voice assistant in Python
+# Jarvis — голосовой ассистент
+
+Лёгкий голосовой ассистент с интерфейсом командной строки (CLI). Слушает голосовые
+команды, распознаёт их и выполняет действия: открывает и сворачивает/разворачивает приложения, отправляет
+сообщения в Telegram и т.д.
+
+> **Поддерживается только Windows.**
+
+
+## Требования
+
+- Windows 10/11
+- Python 3.13, добавленный в PATH
+
+
+## Структура проекта
+
+```
+jarvis/
+├── main.py            # точка входа, главный цикл
+├── listener.py        # захват голоса и STT
+├── commands.py        # словарь команд
+├── actions/
+│   ├── apps.py         # открытие приложений
+│   └── telegram.py     # отправка сообщений в Telegram
+├── config.py           # настройки, загрузка токенов из .env
+└── requirements.txt
+```
+
+
+## Установка
+
+
+### Стабильная версия
+
+Для обычного использования рекомендуется установить стабильную версию:
+
+```bash
+git clone https://github.com/ans0ma/jarvis.git
+cd jarvis
+python3.13 -m venv venv
+venv\Scripts\activate
+pip install -r requirements.txt
+```
+Скопируйте `.env.example` в `.env` и заполните своими токенами для работы команд, связанных с Telegram.
+
+### Версия для разработки
+
+Для разработки и тестирования последних изменений:
+
+```bash
+git clone -b ans0ma --single-branch https://github.com/ans0ma/jarvis.git
+cd jarvis
+python3.13 -m venv venv
+venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+Скопируйте `.env.example` в `.env` и заполните своими токенами для работы команд, связанных с Telegram.
+
+
+## Запуск
+
+```bash
+python main.py
+```
