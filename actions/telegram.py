@@ -16,15 +16,16 @@ contacts.json.
 import json
 import os
 
+from telethon.errors import RPCError
+
 # Импорт из telethon.sync даёт синхронный API.
 # Без .sync каждый метод клиента был бы корутиной, которую нужно await'ить,
 # а это потребовало бы переписать весь проект на asyncio. С .sync Telethon сам
 # поднимает event loop под капотом, и client.send_message можно вызывать
 # как обычную синхронную функцию.
 from telethon.sync import TelegramClient
-from telethon.errors import RPCError
 
-from config import TELEGRAM_API_ID, TELEGRAM_API_HASH, TELEGRAM_PHONE
+from config import TELEGRAM_API_HASH, TELEGRAM_API_ID, TELEGRAM_PHONE
 
 # Базовое имя session-файла. Telethon сам допишет расширение .session.
 # Файл появится в той же папке, откуда запущен main.py.
@@ -44,7 +45,9 @@ def _get_client():
     подключение происходит позже, в client.start()."""
     global _client
     if _client is None:
-        _client = TelegramClient(SESSION_NAME, TELEGRAM_API_ID, TELEGRAM_API_HASH)
+        if not TELEGRAM_API_ID or not TELEGRAM_API_HASH:
+            raise ValueError("Не заданы TELEGRAM_API_ID или TELEGRAM_API_HASH")
+        _client = TelegramClient(SESSION_NAME, int(TELEGRAM_API_ID), TELEGRAM_API_HASH)
     return _client
 
 
@@ -80,7 +83,7 @@ def _parse_recipient_and_message(text):
     if trigger_index is None:
         return None, None
 
-    remaining = words[trigger_index + 1:]
+    remaining = words[trigger_index + 1 :]
     if len(remaining) < 2:
         # Нет отдельно получателя и текста ("напиши маме" без самого сообщения)
         return None, None
@@ -110,8 +113,10 @@ def send_telegram_message(text):
         )
         return
 
-    if not TELEGRAM_API_ID or not TELEGRAM_API_HASH:
-        print("[telegram] Не заданы TELEGRAM_API_ID/TELEGRAM_API_HASH в .env, отправка невозможна.")
+    if not TELEGRAM_API_ID or not TELEGRAM_API_HASH or not TELEGRAM_PHONE:
+        print(
+            "[telegram] Не заданы TELEGRAM_API_ID, TELEGRAM_API_HASH или TELEGRAM_PHONE в .env, отправка невозможна."
+        )
         return
 
     client = _get_client()
@@ -121,7 +126,7 @@ def send_telegram_message(text):
         # Если файла нет (первый запуск), Telethon сам спросит в консоли
         # код подтверждения, который придёт в Telegram/SMS на TELEGRAM_PHONE.
         client.start(phone=TELEGRAM_PHONE)
-        client.send_message(target, message)
+        client.send_message(target, message)  # type: ignore
         print(f"[telegram] Сообщение отправлено «{recipient_key}»: {message}")
     except RPCError as e:
         # Ошибки на стороне Telegram: неверный username, флуд-контроль и т.п.
@@ -129,6 +134,6 @@ def send_telegram_message(text):
     except (ConnectionError, OSError) as e:
         # Проблемы с сетью/подключением
         print(f"[telegram] Нет соединения с Telegram: {e}")
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001
         # Любая другая ошибка
         print(f"[telegram] Непредвиденная ошибка при отправке: {e}")

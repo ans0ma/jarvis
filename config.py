@@ -1,4 +1,5 @@
 import os
+
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -20,7 +21,7 @@ def check_config():
     Вызывается один раз при старте приложения."""
     missing = [name for name, value in REQUIRED_VARS.items() if not value]
     if missing:
-        print:(
+        print(
             f"В .env не хватает переменных: {', '.join(missing)}. "
             "Команды, связанные с Telegram, работать не будут."
             "Скопируйте .env.example в .env и заполните значения."
