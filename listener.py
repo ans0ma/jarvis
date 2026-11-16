@@ -11,7 +11,7 @@ def listen():
         audio = recognizer.listen(source)
 
     try:
-        text = recognizer.recognize_google(audio, language="ru-RU").lower()
+        text = recognizer.recognize_google(audio, language="ru-RU").lower()  # type: ignore
         print(f"Распознано: {text}")
         return text
     except sr.UnknownValueError:

@@ -1,4 +1,4 @@
-from actions.apps import open_app, minimize_all, restore_all
+from actions.apps import minimize_all, open_app, restore_all
 from actions.telegram import send_telegram_message
 
 

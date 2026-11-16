@@ -1,4 +1,5 @@
 import subprocess
+
 import pygetwindow as gw
 
 _minimized_by_us = []
