@@ -1,24 +1,28 @@
 import config
-from listener import listen
 from commands import execute
+from listener import listen
 
 STOP_WORDS = ("стоп", "выход")
 
 
 def main():
     config.check_config()
-    print("Jarvis запущен. Говорите команды. Для выхода нажмите Ctrl+C или скажите 'стоп'.")
+    print(
+        "Jarvis запущен. Говорите команды. Для выхода нажмите Ctrl+C или скажите 'стоп'."
+    )
 
     while True:
         text = listen()
         if not text:
             continue
 
-        if any(word in text for word in STOP_WORDS):
+        text_lower = text.lower().strip()
+
+        if any(word in text_lower for word in STOP_WORDS):
             print("Останавливаюсь.")
             break
 
-        execute(text)
+        execute(text_lower)
 
 
 if __name__ == "__main__":
